@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SEOUL 2026 · T1 Home Ground 旅遊手冊</title>
+<style>
+:root{
+  --red:#E4012D;
+  --red-dk:#B00023;
+  --ink:#1A1B20;
+  --ink-2:#4A4C55;
+  --ink-3:#8A8D98;
+  --paper:#F4F5F7;
+  --card:#FFFFFF;
+  --hair:#E3E5EA;
+  --l1:#0052A4; --l2:#00A84D; --l3:#EF7C1C; --l5:#996CAC; --l9:#BDB092;
+  --sbd:#F5A200; --arex:#0090D2; --bus:#386DE8; --uber:#111111; --walk:#6B7280;
+  --gold:#C9A227;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Noto Sans TC","Noto Sans KR","Malgun Gothic",sans-serif;
+  background:var(--paper);color:var(--ink);font-size:15px;line-height:1.55;
+  padding-bottom:60px;
+}
+.wrap{max-width:680px;margin:0 auto;padding:0 14px}
+
+/* ===== Header ===== */
+header{
+  background:var(--ink);color:#fff;
+  padding:26px 0 20px;position:relative;overflow:hidden;
+}
+header::after{
+  content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;
+  background:var(--red);transform:rotate(20deg);opacity:.92;
+  clip-path:polygon(0 0,100% 0,100% 100%);
+}
+.hd-eyebrow{font-size:11px;letter-spacing:.28em;color:var(--red);font-weight:800;text-transform:uppercase}
+h1{font-size:26px;font-weight:900;letter-spacing:.01em;margin:6px 0 2px;position:relative;z-index:1}
+.hd-sub{font-size:13px;color:#C9CBD3;position:relative;z-index:1}
+.hd-flights{display:flex;gap:8px;margin-top:14px;position:relative;z-index:1;flex-wrap:wrap}
+.flight{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  border-radius:8px;padding:7px 11px;font-size:12.5px;
+}
+.flight b{color:#fff;font-size:13.5px;font-variant-numeric:tabular-nums}
+.flight span{color:#AEB1BC}
+
+/* ===== Tabs ===== */
+nav{
+  position:sticky;top:0;z-index:50;background:var(--card);
+  border-bottom:2px solid var(--ink);
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+.tabs{display:flex;max-width:680px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:1;min-width:78px;padding:11px 4px 9px;text-align:center;cursor:pointer;
+  border:none;background:none;font-family:inherit;color:var(--ink-3);
+  border-bottom:3px solid transparent;transition:color .15s;
+}
+.tab .d{display:block;font-size:15px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.15}
+.tab .w{display:block;font-size:10.5px;letter-spacing:.08em;margin-top:1px}
+.tab.active{color:var(--red);border-bottom-color:var(--red)}
+.tab:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+
+/* ===== Day ===== */
+.day{display:none;padding-top:16px}
+.day.show{display:block;animation:fadein .25s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.day.show{animation:none}}
+.day-head{margin:6px 2px 14px}
+.day-head h2{font-size:19px;font-weight:900}
+.day-head h2 em{font-style:normal;color:var(--red)}
+.day-head p{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+
+/* ===== Timeline card ===== */
+.stop{
+  background:var(--card);border:1px solid var(--hair);border-radius:14px;
+  padding:14px 14px 12px;margin-bottom:12px;position:relative;
+}
+.stop.hl{border-left:4px solid var(--red)}
+.stop.match{border:2px solid var(--red);background:#FFF7F8}
+.t-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.t-time{
+  font-weight:900;font-size:16px;font-variant-numeric:tabular-nums;
+  color:var(--red-dk);letter-spacing:-.01em;white-space:nowrap;
+}
+.stop.match .t-time{color:var(--red)}
+.t-title{font-weight:800;font-size:15.5px;flex:1;min-width:180px}
+.t-emoji{font-size:15px}
+.lang{font-size:12px;color:var(--ink-2);margin-top:2px;line-height:1.5}
+.lang b{color:var(--ink);font-weight:600}
+.addr{
+  margin-top:8px;font-size:12px;color:var(--ink-2);line-height:1.55;
+  background:#F7F8FA;border-radius:8px;padding:8px 10px;
+}
+.addr .lbl{font-size:10px;letter-spacing:.15em;color:var(--ink-3);font-weight:800;display:block;margin-bottom:2px}
+.trans{margin-top:9px;display:flex;flex-direction:column;gap:6px}
+.tr-line{display:flex;align-items:flex-start;gap:7px;font-size:12.5px;color:var(--ink-2);flex-wrap:wrap}
+.chip{
+  display:inline-flex;align-items:center;gap:5px;
+  border-radius:999px;padding:2.5px 9px 2.5px 4px;font-size:11.5px;font-weight:800;color:#fff;
+  white-space:nowrap;line-height:1.6;
+}
+.chip .n{
+  width:17px;height:17px;border-radius:50%;background:rgba(255,255,255,.25);
+  display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;
+}
+.c-l1{background:var(--l1)}.c-l2{background:var(--l2)}.c-l3{background:var(--l3)}
+.c-l5{background:var(--l5)}.c-l9{background:var(--l9);color:#3B3520}.c-l9 .n{background:rgba(0,0,0,.14)}
+.c-sbd{background:var(--sbd);color:#4A3300}.c-sbd .n{background:rgba(0,0,0,.12)}
+.c-arex{background:var(--arex)}.c-bus{background:var(--bus)}
+.c-uber{background:var(--uber)}.c-walk{background:var(--walk)}
+.c-fee{background:#fff;color:var(--ink);border:1px solid var(--hair);font-weight:700;padding:2.5px 9px}
+.tr-txt{flex:1;min-width:200px}
+.tr-txt b{color:var(--ink)}
+.note{
+  margin-top:9px;font-size:12.5px;color:var(--ink-2);
+  border-top:1px dashed var(--hair);padding-top:8px;line-height:1.6;
+}
+.note .warn{color:var(--red-dk);font-weight:700}
+.note .ok{color:#0B7A3E;font-weight:700}
+.foods{margin-top:8px;display:flex;flex-direction:column;gap:7px}
+.food{
+  background:#FFFDF6;border:1px solid #F0E6C8;border-radius:9px;padding:8px 10px;font-size:12px;
+}
+.food b{font-size:12.5px;color:var(--ink)}
+.food .fa{color:var(--ink-3);margin-top:1px;line-height:1.5}
+
+/* ===== Hotel card ===== */
+.hotel{
+  background:var(--ink);color:#fff;border-radius:14px;padding:16px 15px;margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.hotel::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red)}
+.hotel .hl-lbl{font-size:10.5px;letter-spacing:.25em;color:var(--red);font-weight:800}
+.hotel h3{font-size:17px;font-weight:900;margin:4px 0 1px}
+.hotel .lang{color:#B9BCC6}
+.hotel .addr{background:rgba(255,255,255,.07);color:#D5D7DE}
+.hotel .addr .lbl{color:#8A8D98}
+.hotel .h-meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.hotel .h-tag{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:7px;padding:5px 10px;font-size:11.5px}
+.hotel .h-tag b{color:#fff}
+
+/* ===== Info page ===== */
+.sec{background:var(--card);border:1px solid var(--hair);border-radius:14px;padding:15px;margin-bottom:13px}
+.sec h3{font-size:15.5px;font-weight:900;display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.sec h3::before{content:"";width:5px;height:16px;background:var(--red);border-radius:2px}
+.sec p{font-size:13px;color:var(--ink-2);margin-bottom:7px}
+.sec p b{color:var(--ink)}
+.wx{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.wx-c{background:#F7F8FA;border-radius:10px;padding:10px 8px;text-align:center}
+.wx-c .v{font-size:19px;font-weight:900;color:var(--red-dk);font-variant-numeric:tabular-nums}
+.wx-c .k{font-size:10.5px;color:var(--ink-3);margin-top:2px;letter-spacing:.04em}
+
+/* currency */
+.fx{display:flex;gap:8px;align-items:stretch;margin:10px 0 6px}
+.fx-box{flex:1;background:#F7F8FA;border:1.5px solid var(--hair);border-radius:11px;padding:9px 11px}
+.fx-box:focus-within{border-color:var(--red)}
+.fx-box label{display:block;font-size:10.5px;letter-spacing:.12em;color:var(--ink-3);font-weight:800}
+.fx-box input{
+  width:100%;border:none;background:none;font-family:inherit;font-size:19px;font-weight:900;
+  color:var(--ink);outline:none;font-variant-numeric:tabular-nums;margin-top:2px;
+}
+.fx-eq{display:flex;align-items:center;font-weight:900;color:var(--ink-3);font-size:17px}
+.fx-rate{font-size:11.5px;color:var(--ink-3)}
+.fx-rate input{
+  width:64px;border:1px solid var(--hair);border-radius:6px;padding:2px 6px;font-family:inherit;
+  font-size:11.5px;font-variant-numeric:tabular-nums;text-align:center;
+}
+.fx-quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.fx-q{background:#F1F2F5;border:none;border-radius:7px;padding:5px 10px;font-size:11.5px;font-family:inherit;color:var(--ink-2);cursor:pointer;font-weight:700}
+.fx-q:active{background:var(--red);color:#fff}
+
+/* tips */
+.tips{list-style:none;display:flex;flex-direction:column;gap:8px;counter-reset:tip}
+.tip{
+  display:flex;gap:10px;background:#F7F8FA;border-radius:10px;padding:10px 11px;
+  align-items:flex-start;cursor:pointer;border:1.5px solid transparent;transition:border-color .12s;
+}
+.tip.done{border-color:#BFE4CD;background:#F2FBF5}
+.tip .cb{
+  flex:none;width:20px;height:20px;border:2px solid var(--ink-3);border-radius:6px;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:900;
+}
+.tip.done .cb{background:#149A55;border-color:#149A55}
+.tip .tx{font-size:12.5px;color:var(--ink-2);line-height:1.55}
+.tip .tx b{color:var(--ink);font-size:13px;display:block}
+.tips-hint{font-size:11px;color:var(--ink-3);margin-top:8px}
+
+/* key dates */
+.kd{display:flex;flex-direction:column;gap:7px}
+.kd-i{display:flex;gap:10px;align-items:baseline;font-size:13px}
+.kd-i .d{font-weight:900;color:var(--red-dk);font-variant-numeric:tabular-nums;white-space:nowrap;min-width:74px}
+.kd-i .x{color:var(--ink-2)}
+footer{margin-top:22px;text-align:center;font-size:11px;color:var(--ink-3);line-height:1.7}
+footer b{color:var(--red)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hd-eyebrow">Seoul · Aug 13 – 17, 2026</div>
+    <h1>T1 HOME GROUND 首爾遠征手冊</h1>
+    <div class="hd-sub">Cecilia ✕ 老公 · 兩人專用旅遊書 · 5天4夜</div>
+    <div class="hd-flights">
+      <div class="flight">✈️ 去程 <b>BR170</b> <span>8/13（四）11:00 抵達仁川 T1</span></div>
+      <div class="flight">✈️ 回程 <b>BR169</b> <span>8/17（一）12:00 仁川起飛</span></div>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="tabs" role="tablist">
+    <button class="tab active" role="tab" onclick="go(0,this)"><span class="d">8/13</span><span class="w">四·抵達</span></button>
+    <button class="tab" role="tab" onclick="go(1,this)"><span class="d">8/14</span><span class="w">五·主場①</span></button>
+    <button class="tab" role="tab" onclick="go(2,this)"><span class="d">8/15</span><span class="w">六·秘苑</span></button>
+    <button class="tab" role="tab" onclick="go(3,this)"><span class="d">8/16</span><span class="w">日·主場②</span></button>
+    <button class="tab" role="tab" onclick="go(4,this)"><span class="d">8/17</span><span class="w">一·回程</span></button>
+    <button class="tab" role="tab" onclick="go(5,this)"><span class="d">ℹ️</span><span class="w">資訊</span></button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ============ DAY 1 · 8/13 ============ -->
+<section class="day show">
+  <div class="day-head">
+    <h2>8/13（四）<em>抵達日</em>｜仁寺洞 → 弘大 T1 基地營</h2>
+    <p>湯飯暖胃 → T1 Base Camp 朝聖 → 玉水黑白大廚晚餐</p>
+  </div>
+
+  <div class="hotel">
+    <div class="hl-lbl">HOTEL · 全程住宿</div>
+    <h3>阿米德酒店 首爾</h3>
+    <div class="lang">아미드 호텔 서울 · <b>AMID Hotel Seoul</b></div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 鐘路區 仁寺洞5街 38<br>
+      韓：서울 종로구 인사동5길 38<br>
+      英：38 Insadong 5-gil, Jongno-gu, Seoul
+    </div>
+    <div class="h-meta">
+      <div class="h-tag">🕒 Check-in <b>15:00 起</b>（24h 櫃檯，提早抵達可先寄放行李）</div>
+      <div class="h-tag">🕚 Check-out <b>11:00</b></div>
+      <div class="h-tag">🚇 近 1 號線鐘閣站 / 3 號線安國站</div>
+      <div class="h-tag">📞 +82 2-731-1000</div>
+    </div>
+  </div>
+
+  <div class="stop">
+    <div class="t-row"><span class="t-time">11:00</span><span class="t-title">✈️ BR170 抵達仁川機場 T1</span></div>
+    <div class="note">入境 + 領行李約 45–60 分。<span class="warn">e-Arrival Card 事先填好截圖</span>，加快通關。</div>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">12:13</span><span class="t-title">🚌 機場巴士 6002 → 鐘路2街</span></div>
+    <div class="trans">
+      <div class="tr-line">
+        <span class="chip c-bus"><span class="n">B</span>Airport Limousine 6002</span>
+        <span class="chip c-fee">₩17,000/人</span>
+      </div>
+      <div class="tr-txt">T1 上車 →「<b>鐘路2街（종로2가）</b>」下車，車程 55–70 分，下車步行 5–8 分到飯店</div>
+      <div class="tr-txt">🕐 班次：11:47 / <b>12:13（目標）</b> / 12:26（備援）/ 12:39 / 12:52 / 13:05</div>
+    </div>
+  </div>
+
+  <div class="stop">
+    <div class="t-row"><span class="t-time">13:30</span><span class="t-title">🏨 飯店寄放行李</span></div>
+    <div class="note">未到 15:00 入住時間先寄行李；房間若已備妥有機會提早入住。</div>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">13:50–14:50</span><span class="t-title">🍜 午餐：嚴湧帛豬肉湯飯 鐘閣店</span></div>
+    <div class="lang">엄용백 돼지국밥 종각점 · <b>EomYongBaek Doejigukbap Jonggak</b></div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 鐘路區 仁寺洞3街 20 1樓<br>
+      韓：서울 종로구 인사동3길 20 1층<br>
+      英：1F, 20 Insadong 3-gil, Jongno-gu, Seoul
+    </div>
+    <div class="trans"><div class="tr-line"><span class="chip c-walk"><span class="n">👟</span>步行</span><span class="tr-txt">飯店走路約 <b>2 分鐘</b></span></div></div>
+    <div class="note">週四營業 08:00–15:30、17:00–21:30，午餐時段 <span class="ok">OK</span>。濃郁豬骨湯飯，無海鮮。</div>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">15:40–17:00</span><span class="t-title">🎮 T1 基地營</span></div>
+    <div class="lang">티원 베이스캠프 · <b>T1 Base Camp</b></div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 麻浦區 楊花路 147 地下1樓<br>
+      韓：서울 마포구 양화로 147 지하1층<br>
+      英：B1, 147 Yanghwa-ro, Mapo-gu, Seoul
+    </div>
+    <div class="trans">
+      <div class="tr-line">
+        <span class="chip c-l1"><span class="n">1</span>鐘閣</span>→
+        <span class="chip c-l2"><span class="n">2</span>市廳 轉乘 → 弘大入口</span>
+        <span class="chip c-fee">約 30 分</span>
+      </div>
+      <div class="tr-txt">弘大入口站下車步行 <b>3 分鐘</b></div>
+    </div>
+    <div class="note">24 小時營業。周邊最齊全：採買 + 拍貼機 + PC bang。<span class="warn">結帳記得索取退稅單（Tax Refund）</span>。</div>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">18:15–20:00</span><span class="t-title">🍝 晚餐：Deepin 玉水</span></div>
+    <div class="lang">디핀옥수 · <b>Deepin Oksu</b>（黑白大廚主廚餐廳）</div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 城東區 讀書堂路 194 地下1樓<br>
+      韓：서울 성동구 독서당로 194 지하1층<br>
+      英：B1, 194 Dokseodang-ro, Seongdong-gu, Seoul
+    </div>
+    <div class="trans">
+      <div class="tr-line">
+        <span class="chip c-l2"><span class="n">2</span>弘大入口</span>→
+        <span class="chip c-l3"><span class="n">3</span>乙支路3街 轉乘 → 玉水</span>
+        <span class="chip c-fee">約 42 分</span>
+      </div>
+      <div class="tr-txt">玉水站下車步行 <b>12 分鐘</b>。<b>17:05 務必從弘大出發</b>。</div>
+    </div>
+    <div class="note"><span class="warn">⚠️ 避開墨魚麵、蛤蜊麵（海鮮）</span>；招牌酸種麵包＋松露奶油必點。入口不明顯，跟著導航走。</div>
+  </div>
+
+  <div class="stop">
+    <div class="t-row"><span class="t-time">20:00–20:30</span><span class="t-title">🚕 Uber 回飯店</span></div>
+    <div class="trans"><div class="tr-line"><span class="chip c-uber"><span class="n">U</span>Uber</span><span class="chip c-fee">約 ₩12,300–14,700</span></div></div>
+    <div class="note">早點休息，明天開始連續主場日！</div>
+  </div>
+</section>
+
+<!-- ============ DAY 2 · 8/14 ============ -->
+<section class="day">
+  <div class="day-head">
+    <h2>8/14（五）<em>主場日 ①</em>｜江南 T1 全日</h2>
+    <p>米其林紫蘇油麵 → T1 總部＋咖啡廳 → KSPO DOME 開戰</p>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">11:30–13:00</span><span class="t-title">🍜 午餐：麵首爾</span></div>
+    <div class="lang">면서울 · <b>Myeonseoul</b>（米其林推薦）</div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 江南區 宣陵路 805 1樓<br>
+      韓：서울 강남구 선릉로 805 1층<br>
+      英：1F, 805 Seolleung-ro, Gangnam-gu, Seoul
+    </div>
+    <div class="trans">
+      <div class="tr-line">
+        <span class="chip c-l5"><span class="n">5</span>鐘路3街</span>→
+        <span class="chip c-sbd"><span class="n">S</span>往十里 轉乘 → 狎鷗亭羅德奧</span>
+        <span class="chip c-fee">約 40 分</span>
+      </div>
+      <div class="tr-txt">狎鷗亭羅德奧站下車步行 <b>5 分鐘</b>。<b>10:35 前出門</b>。</div>
+    </div>
+    <div class="note">11:00 開門、11:30 前到避排隊。招牌紫蘇油麵＋手工餃子＋水煮肉，<span class="ok">全部無海鮮</span>。週五營業 ✓（週日休）。</div>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">13:20–15:20</span><span class="t-title">🏢 T1 總部 → ☕ T1 咖啡＆競技場</span></div>
+    <div class="lang">티원 사옥 · <b>T1 HQ</b>｜티원카페&아레나 · <b>T1 Cafe & Arena</b></div>
+    <div class="addr">
+      <span class="lbl">T1 總部</span>
+      中：首爾 江南區 宣陵路 627｜韓：서울 강남구 선릉로 627｜英：627 Seolleung-ro, Gangnam-gu
+    </div>
+    <div class="addr">
+      <span class="lbl">T1 CAFE & ARENA（總部旁）</span>
+      中：首爾 江南區 宣陵路115街 4 1樓｜韓：서울 강남구 선릉로115길 4 1층｜英：1F, 4 Seolleung-ro 115-gil, Gangnam-gu
+    </div>
+    <div class="trans">
+      <div class="tr-line"><span class="chip c-walk"><span class="n">👟</span>步行/短程計程車</span><span class="tr-txt">麵首爾沿宣陵路往南約 1.3km；8月大熱天建議跳錶計程車 5 分（₩5,000 內）</span></div>
+    </div>
+    <div class="note">週五 12:00–20:00 ✓（<span class="warn">咖啡廳週六只到 16:00、週日休</span>，所以排今天）。月替特調＋選手周邊，錢包注意。</div>
+  </div>
+
+  <div class="stop match">
+    <div class="t-row"><span class="t-time">16:30</span><span class="t-title">🏟️ T1 主場日 第一場 @ KSPO DOME</span></div>
+    <div class="lang">티원 홈그라운드 · <b>T1 Home Ground @ KSPO DOME</b>｜R席 3-DAY Pass ✓</div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 松坡區 奧林匹克路 424<br>
+      韓：서울 송파구 올림픽로 424<br>
+      英：424 Olympic-ro, Songpa-gu, Seoul
+    </div>
+    <div class="trans">
+      <div class="tr-line">
+        <span class="chip c-walk"><span class="n">👟</span>步行 8 分</span>→
+        <span class="chip c-l9"><span class="n">9</span>宣靖陵 → 奧林匹克公園</span>
+        <span class="chip c-fee">約 29 分</span>
+      </div>
+      <div class="tr-txt">奧林匹克公園站下車步行 <b>9 分鐘</b>。<b>15:20 從 T1 咖啡出發</b>。</div>
+    </div>
+    <div class="note">比賽可能到 20:00–21:00。場外排隊注意<span class="warn">防曬＋補水</span>；場內周邊攤位提早逛。賽後江南/蠶室宵夜彈性。#T1WIN 🔥</div>
+  </div>
+</section>
+
+<!-- ============ DAY 3 · 8/15 ============ -->
+<section class="day">
+  <div class="day-head">
+    <h2>8/15（六）<em>秘苑＋廣藏市場</em>｜鐘路 → 江南晚餐</h2>
+    <p>宮牆咖啡 → 昌德宮秘苑 12:00 導覽 → 西巡邏街 → 廣藏吃透透 → 回飯店洗澡 → NEGI</p>
+  </div>
+
+  <div class="stop">
+    <div class="t-row"><span class="t-time">10:00</span><span class="t-title">👟 出發：飯店步行至咖啡廳</span></div>
+    <div class="trans"><div class="tr-line"><span class="chip c-walk"><span class="n">👟</span>步行</span><span class="tr-txt">經仁寺洞往北約 <b>15 分鐘</b></span></div></div>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">10:20–11:05</span><span class="t-title">☕ 上國咖啡</span></div>
+    <div class="lang">카페상국 · <b>Café SangGuk</b></div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 鐘路區 昌德宮街 47-7 1~3樓<br>
+      韓：서울 종로구 창덕궁길 47-7 1~3층<br>
+      英：47-7 Changdeokgung-gil, Jongno-gu, Seoul (1–3F)
+    </div>
+    <div class="note">10:20 開門即入。頂樓可眺望昌德宮圍牆，現烤司康手快有手慢無。<span class="warn">別坐過頭，11:05 起身</span>。</div>
+  </div>
+
+  <div class="stop match">
+    <div class="t-row"><span class="t-time">12:00–13:10</span><span class="t-title">🌿 昌德宮 秘苑導覽（夏季 70 分鐘）</span></div>
+    <div class="lang">창덕궁 후원 · <b>Changdeokgung Secret Garden</b></div>
+    <div class="addr">
+      <span class="lbl">ADDRESS（敦化門售票入場）</span>
+      中：首爾 鐘路區 栗谷路 99<br>
+      韓：서울 종로구 율곡로 99<br>
+      英：99 Yulgok-ro, Jongno-gu, Seoul
+    </div>
+    <div class="trans">
+      <div class="tr-line"><span class="chip c-walk"><span class="n">👟</span>步行動線</span>
+      <span class="tr-txt">11:10 咖啡廳走 2 分到敦化門購票 → 11:15–11:35 仁政殿快看 → <b>11:35 準時走去秘苑入口（售票處→入口約 20 分，遲到不候！）</b></span></div>
+    </div>
+    <div class="note">
+      夏季路線：涵養門 → 芙蓉池 → 不老門/愛蓮池 → 尊德亭 → 演慶堂 → <b>敦化門結束</b>（正好出宮往南走）。<br>
+      📌 <span class="warn">預約：ticket.uforus.co.kr｜8/15 場次約 8/9 上午開搶，先註冊帳號</span>。導覽中不能脫隊，<b>進場前先上廁所＋帶足水</b>。
+    </div>
+  </div>
+
+  <div class="stop">
+    <div class="t-row"><span class="t-time">13:10–13:35</span><span class="t-title">🚶 西巡邏街散步南下</span></div>
+    <div class="lang">서순라길 · <b>Seosunra-gil</b>（宗廟西牆石牆路）</div>
+    <div class="note">沿宗廟圍牆的工藝小店街，有樹蔭比大馬路涼，一路走到廣藏市場。</div>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">13:35–15:00</span><span class="t-title">🍢 午餐：廣藏市場小吃巡禮</span></div>
+    <div class="lang">광장시장 · <b>Gwangjang Market</b></div>
+    <div class="addr">
+      <span class="lbl">MARKET</span>
+      中：首爾 鐘路區 昌慶宮路 88｜韓：서울 종로구 창경궁로 88｜英：88 Changgyeonggung-ro, Jongno-gu
+    </div>
+    <div class="foods">
+      <div class="food"><b>🦀 順熙家小菜專賣老店（醬蟹在這！）</b><div class="fa">순희네 · 中：首爾 鐘路區 禮智洞 2-1 廣藏市場內｜韓：서울 종로구 예지동 2-1 광장시장 내</div></div>
+      <div class="food"><b>🥩 富村生牛肉 本店</b><div class="fa">부촌육회 본점 · Buchon Yukhoe｜中：鐘路區 鐘路 200-12 1樓｜韓：서울 종로구 종로 200-12 1층｜英：1F, 200-12 Jong-ro</div></div>
+      <div class="food"><b>🐟 總角家鯽魚餅</b><div class="fa">총각네붕어빵 · Chonggakne Bungeoppang｜中：鐘路區 昌慶宮路 88｜韓：서울 종로구 창경궁로 88</div></div>
+      <div class="food"><b>🥨 廣藏糯米麻花</b><div class="fa">광장시장 찹쌀꽈배기 · Chapssal Kkwabaegi｜中：鐘路區 鐘路32街 2 105號｜韓：서울 종로구 종로32길 2 105호</div></div>
+      <div class="food"><b>🍗 廣藏鍋巴炸雞丁</b><div class="fa">中：鐘路區 東湖路 403-8｜韓：서울특별시 종로구 동호로 403-8</div></div>
+    </div>
+    <div class="note"><span class="warn">吃醬蟹前記得先吃驅蟲藥（見資訊頁 Tips）</span>。市場有遮頂但不涼，吃完別逗留。</div>
+  </div>
+
+  <div class="stop">
+    <div class="t-row"><span class="t-time">15:20–16:45</span><span class="t-title">🚿 回飯店洗澡＋冷氣充電</span></div>
+    <div class="trans"><div class="tr-line"><span class="chip c-walk"><span class="n">👟</span>步行</span><span class="tr-txt">市場走回飯店約 15–20 分</span></div></div>
+    <div class="note">避開全日最熱的 15:00–17:00，洗個澡換裝再出發江南。</div>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">18:30–20:30</span><span class="t-title">🍶 晚餐：NEGI Dining Lounge（已訂位 18:30）</span></div>
+    <div class="lang">네기다이닝라운지 · <b>NEGI Dining Lounge</b>（黑白大廚主廚 · 日式 Fusion）</div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 江南區 島山大路15街 18 4樓<br>
+      韓：서울 강남구 도산대로15길 18 4층<br>
+      英：4F, 18 Dosan-daero 15-gil, Gangnam-gu, Seoul
+    </div>
+    <div class="trans">
+      <div class="tr-line">
+        <span class="chip c-l3"><span class="n">3</span>安國 → 新沙（直達免轉乘）</span>
+        <span class="chip c-fee">約 25 分</span>
+      </div>
+      <div class="tr-txt">新沙站下車步行 <b>8 分鐘</b>。16:50 出發 → 17:25 抵新沙 → <b>先逛林蔭道（가로수길）到 18:25</b> 再上樓。</div>
+    </div>
+    <div class="note"><span class="warn">⚠️ 招牌多海鮮（海膽/刺身/鮪魚塔塔）→ 鎖定松露蛋、馬鈴薯麵疙瘩、烤洋蔥、和牛類</span>。</div>
+  </div>
+
+  <div class="stop">
+    <div class="t-row"><span class="t-time">20:30–21:00</span><span class="t-title">🚕 Uber 回飯店</span></div>
+    <div class="trans"><div class="tr-line"><span class="chip c-uber"><span class="n">U</span>Uber</span><span class="chip c-fee">約 ₩11,700–14,700</span></div></div>
+  </div>
+</section>
+
+<!-- ============ DAY 4 · 8/16 ============ -->
+<section class="day">
+  <div class="day-head">
+    <h2>8/16（日）<em>主場日 ②</em>｜貝果 → 熟成燒肉 → LoL Park → KSPO</h2>
+    <p>益善洞韓屋貝果 → 熟成度黑豬 → LCK 聖地巡禮 → 最終戰</p>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">08:00–09:00</span><span class="t-title">🥯 早餐：溫知心 益善洞（韓屋貝果）</span></div>
+    <div class="lang">온지심 익선동 · <b>Onjisim Ikseon</b></div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 鐘路區 敦化門路11다街 17<br>
+      韓：서울 종로구 돈화문로11다길 17<br>
+      英：17 Donhwamun-ro 11da-gil, Jongno-gu, Seoul
+    </div>
+    <div class="trans"><div class="tr-line"><span class="chip c-walk"><span class="n">👟</span>步行</span><span class="tr-txt">飯店走路約 <b>8 分鐘</b></span></div></div>
+    <div class="note">每天 08:00 開門，越早越不用排。貝果 Q 彈出名，配 Orange Bianco Latte。吃完回飯店休息到 11 點。</div>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">11:30–13:00</span><span class="t-title">🥩 午餐：熟成度 乙支路店</span></div>
+    <div class="lang">숙성도 을지로점 · <b>Sooksungdo Euljiro</b>（濟州熟成黑豬 · 專人代烤）</div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 中區 三一大路10街 36 2樓<br>
+      韓：서울 중구 삼일대로10길 36 2층<br>
+      英：2F, 36 Samil-daero 10-gil, Jung-gu, Seoul
+    </div>
+    <div class="trans"><div class="tr-line"><span class="chip c-uber"><span class="n">U</span>Uber</span><span class="chip c-fee">約 ₩5,000</span><span class="tr-txt">11:05 出發，10 分內抵達</span></div></div>
+    <div class="note">📌 <span class="warn">訂位（開放後搶）：catchtable.net/zh-TW/shop/sooksungdo</span>。評價 4.9，熟成 960 五花＋豬頸肉必點，<span class="ok">無海鮮</span>。</div>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">13:15–14:50</span><span class="t-title">🎮 LoL Park 電競殿堂</span></div>
+    <div class="lang">롤파크 · <b>LoL Park</b>（LCK 主場）</div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 鐘路區 鐘路 33 Gran Seoul Tower 3樓<br>
+      韓：서울 종로구 종로 33 그랑서울 타워 3층<br>
+      英：3F Gran Seoul, 33 Jong-ro, Jongno-gu, Seoul
+    </div>
+    <div class="trans">
+      <div class="tr-line">
+        <span class="chip c-bus"><span class="n">B</span>公車 9003 / 9300 / 8100 / 1150 / 5007</span>
+        <span class="chip c-fee">約 2 分</span>
+      </div>
+      <div class="tr-txt">熟成度門口搭車 →「<b>鐘路2街</b>」下車步行過去。<span class="warn">公車上下車都要刷卡</span>。</div>
+    </div>
+    <div class="note">周邊店免費入場；當日若有 LCK 賽事，觀賽需門票（NOL 平台），出發前查 8/16 賽程。<br><b>明洞備案</b>：LoL Park 走路到明洞約 30 分＋去 KSPO 要 1 小時 → <span class="warn">時間很緊，預設跳過</span>，想去就把 LoL Park 壓縮到 14:00 前。</div>
+  </div>
+
+  <div class="stop match">
+    <div class="t-row"><span class="t-time">16:30</span><span class="t-title">🏟️ T1 主場日 第二場 @ KSPO DOME</span></div>
+    <div class="lang">티원 홈그라운드 · <b>T1 Home Ground @ KSPO DOME</b></div>
+    <div class="addr">
+      <span class="lbl">ADDRESS</span>
+      中：首爾 松坡區 奧林匹克路 424｜韓：서울 송파구 올림픽로 424｜英：424 Olympic-ro, Songpa-gu
+    </div>
+    <div class="trans">
+      <div class="tr-line">
+        <span class="chip c-l5"><span class="n">5</span>光化門 → 奧林匹克公園</span>
+        <span class="chip c-fee">約 1 小時</span>
+      </div>
+      <div class="tr-txt">下車步行 9 分。<span class="warn">⚠️ 最晚 15:00 前光化門站上車（死線！）</span>，14:50 從 LoL Park 出發走去光化門站。</div>
+    </div>
+    <div class="note">最終戰！比賽可能到 20:00–21:00，賽後宵夜彈性或直接回飯店打包。#T1FIGHTING 🔴⚪</div>
+  </div>
+</section>
+
+<!-- ============ DAY 5 · 8/17 ============ -->
+<section class="day">
+  <div class="day-head">
+    <h2>8/17（一）<em>回程日</em>｜最後採買 → 仁川機場</h2>
+    <p>BR169 · 12:00 起飛</p>
+  </div>
+
+  <div class="stop">
+    <div class="t-row"><span class="t-time">07:30–08:30</span><span class="t-title">🛍️ 退房＋最後採買</span></div>
+    <div class="note">Olive Young／便利商店伴手禮（部分店 09:00 後才開，缺的到機場補）。行李把 T1 周邊收好、退稅單備齊。</div>
+  </div>
+
+  <div class="stop hl">
+    <div class="t-row"><span class="t-time">08:40–09:50</span><span class="t-title">🚄 前往仁川機場 T1</span></div>
+    <div class="trans">
+      <div class="tr-line">
+        <span class="chip c-arex"><span class="n">A</span>AREX 直達（首爾站 → T1 約 43 分）</span>
+      </div>
+      <div class="tr-txt">或反向搭 <b>6002 巴士</b>（鐘路2街上車）。整段抓 <b>70 分鐘</b> 緩衝。</div>
+    </div>
+  </div>
+
+  <div class="stop match">
+    <div class="t-row"><span class="t-time">12:00</span><span class="t-title">✈️ BR169 起飛 → 台北</span></div>
+    <div class="note">
+      09:50 前抵機場 → 報到託運 → <b>退稅</b>（T1 周邊、電子配件別忘）→ <span class="ok">SmartPass 快速出境</span>。<br>
+      建議起飛前 2 小時到達即可從容完成。回家！🇹🇼
+    </div>
+  </div>
+</section>
+
+<!-- ============ INFO ============ -->
+<section class="day">
+  <div class="day-head">
+    <h2>ℹ️ <em>旅遊資訊</em>｜天氣 · 匯率 · Tips</h2>
+    <p>出發前看一遍，旅途中隨時查</p>
+  </div>
+
+  <div class="sec">
+    <h3>🌡️ 首爾 8 月天氣</h3>
+    <div class="wx">
+      <div class="wx-c"><div class="v">30–34°</div><div class="k">白天高溫</div></div>
+      <div class="wx-c"><div class="v">25°+</div><div class="k">夜間（熱帶夜）</div></div>
+      <div class="wx-c"><div class="v">70–80%</div><div class="k">濕度</div></div>
+    </div>
+    <p>體感常達 <b>36–38°C</b>，悶熱程度近似台北盛夏、太陽更烈；偶有午後雷陣雨。</p>
+    <p><b>對策</b>：陽傘/帽子必備（韓國人夏天人人撐傘）、頸掛風扇與涼感巾當地 Olive Young／便利商店就買得到、行程已把 15:00–17:00 最熱時段盡量排室內或回飯店。戶外排隊（KSPO 入場）務必防曬＋補水。</p>
+  </div>
+
+  <div class="sec">
+    <h3>💱 匯率換算</h3>
+    <div class="fx">
+      <div class="fx-box"><label>韓元 KRW ₩</label><input type="number" id="krw" inputmode="decimal" placeholder="10000" oninput="fx('krw')"></div>
+      <div class="fx-eq">≈</div>
+      <div class="fx-box"><label>台幣 TWD NT$</label><input type="number" id="twd" inputmode="decimal" placeholder="235" oninput="fx('twd')"></div>
+    </div>
+    <div class="fx-rate">匯率：1,000 韓元 ≈ <input type="number" id="rate" value="23.5" step="0.1" inputmode="decimal" oninput="fx('krw')"> 台幣（出發前依當日匯率修改）</div>
+    <div class="fx-quick">
+      <button class="fx-q" onclick="setK(5000)">₩5,000</button>
+      <button class="fx-q" onclick="setK(10000)">₩10,000</button>
+      <button class="fx-q" onclick="setK(17000)">₩17,000 巴士</button>
+      <button class="fx-q" onclick="setK(50000)">₩50,000</button>
+      <button class="fx-q" onclick="setK(100000)">₩100,000</button>
+    </div>
+    <p style="margin-top:9px">心算口訣：<b>韓元砍三個零 × 23.5 ≈ 台幣</b>；或粗抓「<b>韓元 ÷ 40 ≈ 台幣</b>」快速估價。</p>
+  </div>
+
+  <div class="sec">
+    <h3>✅ 韓國旅遊 Tips 行前清單</h3>
+    <ul class="tips" id="tips">
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>1. 氣候同行卡（기후동행카드）× 2 張</b>首爾市交通吃到飽卡，買 5 日券兩人各一張，地鐵公車無限搭（注意：新盆唐線、廣域巴士等部分路線不適用）。</span></li>
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>2. 韓國簽證 / K-ETA</b>出發前確認台灣護照 K-ETA 免簽現況（政策會變動，行前一個月上官網 k-eta.go.kr 查最新規定）。</span></li>
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>3. 公車上下車都要刷卡</b>上車嗶一次、下車也要嗶，才能享轉乘優惠也避免被多扣。</span></li>
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>4. 計程車用 Kakao T</b>先下載綁定，叫車比路邊攔方便，Uber 也可並用（行程內費用已標）。</span></li>
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>5. 出境用 SmartPass</b>仁川機場臉部辨識快速通關，出發前 App 註冊好，8/17 回程直接走快速道。</span></li>
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>6. 吃醬蟹前買驅蟲藥</b>生醃醬蟹屬生食，行前藥局備妥驅蟲藥；8/15 廣藏市場順熙家吃醬蟹前記得服用。</span></li>
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>7. 付款用 Apple Pay</b>韓國多數連鎖店與交通以外的店家可用 Apple Pay（Visa/Master 卡綁定）；傳統市場仍備現金。</span></li>
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>8. e-Arrival Card 先填好截圖</b>線上入境卡出發前填好、截圖存手機，入境快很多。</span></li>
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>9. 插座轉接：220V 雙圓孔</b>韓國為 220V C/F 型雙圓孔插座，帶轉接頭；手機筆電多支援變壓可直接用。</span></li>
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>10. eSIM 先買好</b>出發前買好韓國 eSIM 並確認開通方式，落地即有網路（導航、Kakao T、Papago 都靠它）。</span></li>
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>11. 防曬乳、陽傘絕對要帶</b>8 月首爾烈日＋KSPO 戶外排隊，防曬乳、陽傘、帽子缺一不可。</span></li>
+      <li class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>12. 防針孔偷拍小卡</b>隨身攜帶檢測小卡，住宿與公廁快速檢查，安心為上。</span></li>
+    </ul>
+    <div class="tips-hint">＊點擊可打勾。清單為當次瀏覽勾選，重新整理會重置，出發前最後一次總檢查用。</div>
+  </div>
+
+  <div class="sec">
+    <h3>📌 關鍵日期備忘</h3>
+    <div class="kd">
+      <div class="kd-i"><span class="d">8/9 上午</span><span class="x">搶 8/15 秘苑 12:00 場門票（ticket.uforus.co.kr，先註冊帳號）</span></div>
+      <div class="kd-i"><span class="d">開放時</span><span class="x">搶熟成度 8/16 11:30 訂位（catchtable.net/zh-TW/shop/sooksungdo）</span></div>
+      <div class="kd-i"><span class="d">8/13 12:13</span><span class="x">機場巴士 6002 目標班次（備援 12:26）</span></div>
+      <div class="kd-i"><span class="d">8/15 11:35</span><span class="x">秘苑入口步行死線（售票處→入口 20 分，遲到不候）</span></div>
+      <div class="kd-i"><span class="d">8/16 15:00</span><span class="x">光化門站上車死線（到奧林匹克公園要 1 小時）</span></div>
+      <div class="kd-i"><span class="d">行前一週</span><span class="x">查 LoL Park 8/16 LCK 賽程、確認 K-ETA 現況、修改本頁匯率</span></div>
+    </div>
+  </div>
+
+  <footer>
+    SEOUL 2026 · T1 HOME GROUND TOUR<br>
+    <b>Cecilia ✕ 老公 專用</b> · 兩人的遠征，一路 <b>#T1WIN</b> 🔴⚪
+  </footer>
+</section>
+
+</main>
+
+<script>
+const days=document.querySelectorAll('.day');
+const tabs=document.querySelectorAll('.tab');
+function go(i,btn){
+  days.forEach(d=>d.classList.remove('show'));
+  tabs.forEach(t=>t.classList.remove('active'));
+  days[i].classList.add('show');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function fx(src){
+  const r=parseFloat(document.getElementById('rate').value)||23.5;
+  const k=document.getElementById('krw'), t=document.getElementById('twd');
+  if(src==='krw'){
+    const v=parseFloat(k.value);
+    t.value=isNaN(v)?'':Math.round(v/1000*r*10)/10;
+  }else{
+    const v=parseFloat(t.value);
+    k.value=isNaN(v)?'':Math.round(v/r*1000);
+  }
+}
+function setK(v){document.getElementById('krw').value=v;fx('krw');}
+function tg(el){el.classList.toggle('done');}
+</script>
+</body>
+</html>
