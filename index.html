@@ -98,6 +98,13 @@ nav{
   background:#F7F8FA;border-radius:8px;padding:8px 10px;
 }
 .addr .lbl{font-size:10px;letter-spacing:.15em;color:var(--ink-3);font-weight:800;display:block;margin-bottom:2px}
+.copy-kr{
+  display:inline-flex;align-items:center;gap:4px;margin-left:6px;vertical-align:middle;
+  background:#FEE500;color:#3C1E1E;border:none;border-radius:6px;padding:3px 8px;
+  font-family:inherit;font-size:11px;font-weight:800;cursor:pointer;line-height:1.4;
+}
+.copy-kr:active{transform:scale(.94)}
+.copy-kr.done{background:#00C73C;color:#fff}
 .trans{margin-top:9px;display:flex;flex-direction:column;gap:6px}
 .tr-line{display:flex;align-items:flex-start;gap:7px;font-size:12.5px;color:var(--ink-2);flex-wrap:wrap}
 .chip{
@@ -194,6 +201,19 @@ nav{
 .exp-row2{display:flex;gap:7px;margin-top:7px}
 .exp-row2 input{flex:1;min-width:80px}
 .exp-who{display:flex;border:1.5px solid var(--hair);border-radius:9px;overflow:hidden;flex:none}
+.cash-set{display:flex;align-items:center;gap:8px;background:#FFFBEB;border:1.5px solid #F5D97A;border-radius:10px;padding:9px 11px;margin-bottom:10px}
+.cash-set label{font-size:12px;font-weight:800;color:#7A5B00;white-space:nowrap}
+.cash-set input{flex:1;min-width:0;border:none;background:none;font-family:inherit;font-size:16px;font-weight:900;color:var(--ink);outline:none;font-variant-numeric:tabular-nums}
+.exp-opts{display:flex;gap:7px;margin-top:7px;flex-wrap:wrap}
+.exp-pay{display:flex;border:1.5px solid var(--hair);border-radius:9px;overflow:hidden;flex:none}
+.pay{border:none;background:#F7F8FA;font-family:inherit;font-size:12px;font-weight:800;color:var(--ink-3);padding:7px 11px;cursor:pointer}
+.pay.active{background:var(--ink);color:#fff}
+.exp-export{
+  display:block;width:100%;margin-top:12px;border:1.5px solid var(--ink);
+  background:#fff;color:var(--ink);border-radius:10px;padding:11px;
+  font-family:inherit;font-size:13.5px;font-weight:800;cursor:pointer;
+}
+.exp-export:active{background:var(--ink);color:#fff}
 .who{border:none;background:#F7F8FA;font-family:inherit;font-size:12px;font-weight:800;color:var(--ink-3);padding:0 11px;cursor:pointer}
 .who.active{background:var(--red);color:#fff}
 .exp-add{
@@ -743,9 +763,9 @@ footer b{color:var(--red)}
       </div>
       <div class="tips-grp">🚇 交通與付款</div>
       <div class="tips">
-        <div class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>氣候同行卡（기후동행카드）× 2 張</b>首爾市交通吃到飽卡，抵達後買 5 日券兩人各一張，地鐵公車無限搭（注意：新盆唐線、廣域巴士等部分路線不適用）。</span></div>
+        <div class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>Apple Pay 綁 T-money 搭車</b>iPhone 錢包加入 T-money 交通卡，用 Apple Pay 儲值，地鐵公車直接嗶手機，不用另外買實體交通卡。</span></div>
         <div class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>公車上下車都要刷卡</b>上車嗶一次、下車也要嗶，才能享轉乘優惠也避免被多扣。</span></div>
-        <div class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>計程車用 Kakao T</b>先下載綁定，叫車比路邊攔方便，Uber 也可並用（行程內費用已標）。</span></div>
+        <div class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>計程車用 Kakao T</b>先下載綁定，叫車比路邊攔方便，Uber 也可並用（行程內費用已標）。<b>叫車小撇步</b>：每個行程地址的韓文旁有 <b>📋 複製</b> 鍵，點一下複製韓文地址，直接貼進 Kakao T 搜尋欄叫車（Kakao 只吃韓文）。</span></div>
         <div class="tip" onclick="tg(this)"><span class="cb">✓</span><span class="tx"><b>付款用 Apple Pay ＋ 備現金</b>韓國多數連鎖店可用 Apple Pay（Visa/Master 綁定）；傳統市場（廣藏）仍以現金為主。</span></div>
       </div>
       <div class="tips-grp">🎒 打包清單</div>
@@ -808,20 +828,31 @@ footer b{color:var(--red)}
 
   <div class="sec">
     <h3>💰 兩人記帳器</h3>
+    <div class="cash-set">
+      <label>💵 準備的現金總額 ₩</label>
+      <input type="number" id="cash-init" inputmode="decimal" value="230000" onchange="expRender()">
+    </div>
     <div class="exp-form">
       <input type="text" id="ex-n" placeholder="項目（例：6002 巴士）">
       <div class="exp-row2">
         <input type="number" id="ex-a" inputmode="decimal" placeholder="金額 ₩">
+        <button type="button" class="exp-add" id="ex-btn" onclick="addExp()">＋ 記一筆</button>
+      </div>
+      <div class="exp-opts">
         <div class="exp-who">
           <button type="button" class="who active" id="who-c" onclick="setWho('C')">Cecilia</button>
           <button type="button" class="who" id="who-j" onclick="setWho('J')">James</button>
         </div>
-        <button type="button" class="exp-add" id="ex-btn" onclick="addExp()">＋ 記一筆</button>
+        <div class="exp-pay">
+          <button type="button" class="pay active" id="pay-cash" onclick="setPay('cash')">💵 現金</button>
+          <button type="button" class="pay" id="pay-card" onclick="setPay('card')">💳 信用卡</button>
+        </div>
       </div>
     </div>
     <div id="exp-list" class="exp-list"></div>
     <div id="exp-sum" class="exp-sum"></div>
-    <p style="font-size:11px;color:var(--ink-3);margin-top:7px">＊資料自動保存在這支手機的瀏覽器裡（Safari/Chrome 開啟時有效）。台幣換算使用資訊頁的即時匯率。</p>
+    <button type="button" class="exp-export" onclick="exportCsv()">⬇️ 匯出帳目（CSV）</button>
+    <p style="font-size:11px;color:var(--ink-3);margin-top:7px">＊資料自動保存在這支手機的瀏覽器裡（Safari/Chrome 開啟時有效）。台幣換算使用資訊頁的即時匯率。匯出的 CSV 可用 Excel／Google Sheet／Numbers 開啟，也可存檔備份或分享給同行者。</p>
   </div>
 
   <footer>
@@ -1687,16 +1718,45 @@ function setK(v){document.getElementById('krw').value=v;fx('krw');}
   .catch(()=>{st.textContent='📴 目前離線，使用預設匯率（可手動修改）';});
 })();
 
-/* ===== 每個地址自動附上 Naver 地圖導航 ===== */
+/* ===== 每個地址：韓文行加複製鍵（給 Kakao Taxi）＋附 Naver 導航 ===== */
+let krAddrList=[];
 (function(){
   document.querySelectorAll('.addr').forEach(a=>{
     const m=a.innerHTML.match(/韓：([^<｜]+)/);
     if(m){
-      const q=encodeURIComponent(m[1].trim());
+      const kr=m[1].trim();
+      const idx=krAddrList.length;
+      krAddrList.push(kr);
+      // 在韓文地址該行的 <br> 前插入複製按鈕
+      a.innerHTML=a.innerHTML.replace(
+        '韓：'+kr,
+        '韓：'+kr+'<button type="button" class="copy-kr" onclick="copyKr('+idx+',this)">📋 複製</button>'
+      );
+      // 地址區塊末尾附 Naver 導航連結
+      const q=encodeURIComponent(kr);
       a.innerHTML+='<a href="https://map.naver.com/p/search/'+q+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:5px;color:#03C75A;font-weight:800;font-size:11.5px;text-decoration:none">🗺️ Naver 地圖導航 ›</a>';
     }
   });
 })();
+function copyKr(i,btn){
+  const txt=krAddrList[i];
+  const done=()=>{
+    const o=btn.textContent;
+    btn.textContent='✓ 已複製';
+    btn.classList.add('done');
+    setTimeout(()=>{btn.textContent=o;btn.classList.remove('done');},1500);
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done).catch(()=>fallbackCopy(txt,done));
+  }else{fallbackCopy(txt,done);}
+}
+function fallbackCopy(txt,cb){
+  const ta=document.createElement('textarea');
+  ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');cb();}catch(e){}
+  document.body.removeChild(ta);
+}
 
 /* ===== Tips 勾選保存＋進度條 ===== */
 let store=null;
@@ -1746,20 +1806,27 @@ function hideMenu6(){document.getElementById('menuPage6').style.display='none';d
 function showMenu7(){document.getElementById('menuPage7').style.display='block';document.body.style.overflow='hidden';}
 function hideMenu7(){document.getElementById('menuPage7').style.display='none';document.body.style.overflow='';}
 
-/* ===== 兩人記帳器（保存＋編輯＋刪除＋拆帳）===== */
-let exp=[]; let expWho='C'; let expEdit=-1;
+/* ===== 兩人記帳器（保存＋編輯＋刪除＋付款方式＋現金餘額）===== */
+let exp=[]; let expWho='C'; let expPay='cash'; let expEdit=-1;
 function expLoad(){
   if(!store)return;
   try{exp=JSON.parse(store.getItem('seoul-exp')||'[]');}catch(e){exp=[];}
+  try{const c=store.getItem('seoul-cash');if(c!==null)document.getElementById('cash-init').value=c;}catch(e){}
 }
 function expSave(){
   if(!store)return;
   try{store.setItem('seoul-exp',JSON.stringify(exp));}catch(e){}
+  try{store.setItem('seoul-cash',document.getElementById('cash-init').value);}catch(e){}
 }
 function setWho(w){
   expWho=w;
   document.getElementById('who-c').classList.toggle('active',w==='C');
   document.getElementById('who-j').classList.toggle('active',w==='J');
+}
+function setPay(p){
+  expPay=p;
+  document.getElementById('pay-cash').classList.toggle('active',p==='cash');
+  document.getElementById('pay-card').classList.toggle('active',p==='card');
 }
 function addExp(){
   const nEl=document.getElementById('ex-n'), aEl=document.getElementById('ex-a');
@@ -1772,11 +1839,11 @@ function addExp(){
   if(!ok)return;
   const d=new Date().toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'});
   if(expEdit>-1){
-    exp[expEdit]={n:n,a:a,p:expWho,d:exp[expEdit].d};
+    exp[expEdit]={n:n,a:a,p:expWho,pay:expPay,d:exp[expEdit].d};
     expEdit=-1;
     document.getElementById('ex-btn').textContent='＋ 記一筆';
   }else{
-    exp.push({n:n,a:a,p:expWho,d:d});
+    exp.push({n:n,a:a,p:expWho,pay:expPay,d:d});
   }
   nEl.value=''; aEl.value='';
   expSave(); expRender();
@@ -1786,6 +1853,7 @@ function expEditRow(i){
   document.getElementById('ex-n').value=e.n;
   document.getElementById('ex-a').value=e.a;
   setWho(e.p);
+  setPay(e.pay||'cash');
   expEdit=i;
   document.getElementById('ex-btn').textContent='✔ 更新';
   document.getElementById('ex-n').focus();
@@ -1813,22 +1881,69 @@ function expRender(){
   let html='';
   exp.forEach((e,i)=>{
     const armed=(delPend===i);
+    const payIcon=(e.pay==='card')?'💳':'💵';
     html+='<div class="exp-i">'
-      +'<div class="en"><b>'+e.n.replace(/</g,'&lt;')+'</b><span>'+e.d+' · '+(e.p==='C'?'Cecilia':'James')+' 付</span></div>'
+      +'<div class="en"><b>'+e.n.replace(/</g,'&lt;')+'</b><span>'+e.d+' · '+(e.p==='C'?'Cecilia':'James')+' · '+payIcon+(e.pay==='card'?'刷卡':'現金')+'</span></div>'
       +'<div class="ea">₩'+e.a.toLocaleString()+'<small>≈NT$'+Math.round(e.a*r).toLocaleString()+'</small></div>'
       +'<button type="button" class="exp-btn" onclick="expEditRow('+i+')">✏️</button>'
       +'<button type="button" class="exp-btn'+(armed?' del-armed':'')+'" onclick="expDelRow('+i+')">'+(armed?'確定?':'🗑️')+'</button></div>';
   });
   list.innerHTML=html||'<div style="font-size:12px;color:var(--ink-3);text-align:center;padding:8px">還沒有記帳，開始記第一筆吧！</div>';
+  const cashInit=parseFloat(document.getElementById('cash-init').value)||0;
   if(exp.length){
     const tot=exp.reduce((s,e)=>s+e.a,0);
+    const cash=exp.filter(e=>(e.pay||'cash')==='cash').reduce((s,e)=>s+e.a,0);
+    const card=exp.filter(e=>e.pay==='card').reduce((s,e)=>s+e.a,0);
     const tc=exp.filter(e=>e.p==='C').reduce((s,e)=>s+e.a,0);
     const tj=tot-tc;
+    const cashLeft=cashInit-cash;
+    const lowCash=cashLeft<30000;
     sum.style.display='block';
     sum.innerHTML='總支出 <b>₩'+tot.toLocaleString()+'</b> ≈ NT$'+Math.round(tot*r).toLocaleString()
-      +'<br>Cecilia 已付 ₩'+tc.toLocaleString()+'（≈NT$'+Math.round(tc*r).toLocaleString()+'）'
-      +'<br>James 已付 ₩'+tj.toLocaleString()+'（≈NT$'+Math.round(tj*r).toLocaleString()+'）';
-  }else{sum.style.display='none';}
+      +'<br>💵 現金支出 ₩'+cash.toLocaleString()+' ｜ 💳 刷卡 ₩'+card.toLocaleString()
+      +'<br><span style="color:'+(lowCash?'#FFD3DC':'#B6F0C8')+';font-weight:800">💰 現金剩餘 ₩'+cashLeft.toLocaleString()+'（≈NT$'+Math.round(cashLeft*r).toLocaleString()+'）'+(lowCash?' ⚠️ 現金不多了':'')+'</span>'
+      +'<br><span style="font-size:11.5px;color:#AEB1BC">Cecilia 付 ₩'+tc.toLocaleString()+' ｜ James 付 ₩'+tj.toLocaleString()+'</span>';
+  }else{
+    sum.style.display='block';
+    sum.innerHTML='<span style="color:#B6F0C8;font-weight:800">💰 現金剩餘 ₩'+cashInit.toLocaleString()+'（≈NT$'+Math.round(cashInit*r).toLocaleString()+'）</span><br><span style="font-size:11.5px;color:#AEB1BC">開始記帳後這裡會顯示現金餘額與刷卡總額</span>';
+  }
+}
+function exportCsv(){
+  if(!exp.length){alert('還沒有記帳資料可以匯出');return;}
+  const r=(parseFloat(document.getElementById('rate').value)||23.5)/1000;
+  const cashInit=parseFloat(document.getElementById('cash-init').value)||0;
+  const esc=s=>{s=String(s);return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+  const rows=[['日期','項目','付款人','付款方式','金額(KRW)','約台幣(TWD)']];
+  exp.forEach(e=>{
+    rows.push([e.d, e.n, (e.p==='C'?'Cecilia':'James'), ((e.pay||'cash')==='card'?'信用卡':'現金'),
+      e.a, Math.round(e.a*r)]);
+  });
+  // 統計列
+  const tot=exp.reduce((s,e)=>s+e.a,0);
+  const cash=exp.filter(e=>(e.pay||'cash')==='cash').reduce((s,e)=>s+e.a,0);
+  const card=exp.filter(e=>e.pay==='card').reduce((s,e)=>s+e.a,0);
+  const tc=exp.filter(e=>e.p==='C').reduce((s,e)=>s+e.a,0);
+  const tj=tot-tc;
+  rows.push([]);
+  rows.push(['— 統計 —']);
+  rows.push(['總支出','', '','', tot, Math.round(tot*r)]);
+  rows.push(['現金支出','', '','', cash, Math.round(cash*r)]);
+  rows.push(['刷卡支出','', '','', card, Math.round(card*r)]);
+  rows.push(['準備現金','', '','', cashInit, Math.round(cashInit*r)]);
+  rows.push(['現金剩餘','', '','', cashInit-cash, Math.round((cashInit-cash)*r)]);
+  rows.push(['Cecilia 付','', '','', tc, Math.round(tc*r)]);
+  rows.push(['James 付','', '','', tj, Math.round(tj*r)]);
+  const csv=rows.map(row=>row.map(esc).join(',')).join('\r\n');
+  // 加 BOM 讓 Excel 正確顯示中文
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
+  const today=new Date().toLocaleDateString('sv-SE');
+  const fname='首爾記帳_'+today+'.csv';
+  if(navigator.msSaveBlob){navigator.msSaveBlob(blob,fname);return;}
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=fname;
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},100);
 }
 expLoad(); expRender();
 </script>
